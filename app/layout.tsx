@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
+import { RainbowProvider } from "@/components/wrappers/rainbowkit-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
@@ -30,19 +31,21 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <ThemeProvider 
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <div className="relative min-h-screen">
-                <div className="fixed top-4 right-4 z-50">
-                  <ModeToggle />
-                </div>
-              {children}
-            </div>
-          </ThemeProvider>
+          <RainbowProvider>
+            <ThemeProvider 
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <div className="relative min-h-screen">
+                  <div className="fixed top-4 right-4 z-50">
+                    <ModeToggle />
+                  </div>
+                {children}
+              </div>
+            </ThemeProvider>
+          </RainbowProvider>
         </body>
       </html>
     </>  
