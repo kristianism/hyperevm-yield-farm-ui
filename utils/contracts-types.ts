@@ -43,7 +43,7 @@ export type GenericContract = {
   external?: true;
 };
 
-export type TContractsKeys = "Masterchef" | ;
+export type TContractsKeys = "Masterchef";
 
 export type GenericContractsDeclaration = {
   [chainId: number]: {

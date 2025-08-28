@@ -8,7 +8,7 @@ import {
 import type { ExtractAbiFunctionNames } from "abitype";
 import { ReadContractErrorType } from "viem";
 import { useBlockNumber, useChainId, useReadContract } from "wagmi";
-import { useDeployedContractInfo } from "./useDeployContractInfo";
+import { useDeployedContractInfo } from "@/hooks/contracts-integration/useDeployContractInfo";
 import {
   AbiFunctionReturnType,
   ContractAbi,

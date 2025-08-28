@@ -11,8 +11,8 @@ import {
 } from "wagmi";
 import { WriteContractErrorType, WriteContractReturnType } from "wagmi/actions";
 import { WriteContractVariables } from "wagmi/query";
-import { useTransactor } from "./useTransactor";
-import { useDeployedContractInfo } from "@/hooks/contractsIntegrationHooks/useDeployContractInfo";
+import { useTransactor } from "@/hooks/contracts-integration/useTransactor";
+import { useDeployedContractInfo } from "@/hooks/contracts-integration/useDeployContractInfo";
 import {
   ContractAbi,
   ContractName,
