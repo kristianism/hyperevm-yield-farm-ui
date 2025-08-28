@@ -1,0 +1,1 @@
+export { default as masterchefAbi } from "./masterchefAbi.json";
