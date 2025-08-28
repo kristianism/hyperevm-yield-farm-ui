@@ -14,7 +14,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-export default function Page() {
+export default function MainnetPage() {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -32,6 +32,10 @@ export default function Page() {
                   <BreadcrumbLink href="/dashboard">
                     Dashboard
                   </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>My Position</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
