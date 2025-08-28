@@ -1,12 +1,7 @@
+"use client"
+
 import { AppSidebar } from "@/components/app-sidebar"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+import { RouterBreadcrumb } from "@/components/ui/router-breadcrumb"
 import { Separator } from "@/components/ui/separator"
 import {
   SidebarInset,
@@ -14,7 +9,18 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-export default function MainnetPage() {
+export default function PoolPage() {
+  const breadcrumbItems = [
+    { label: "Dashboard", 
+      href: "/dashboard", 
+      isActive: false 
+    },
+    { label: "Pools", 
+      href: "/dashboard/farm", 
+      isActive: true 
+    }
+  ]
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -26,19 +32,7 @@ export default function MainnetPage() {
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/dashboard">
-                    Dashboard
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Pools</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <RouterBreadcrumb items={breadcrumbItems} />
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
