@@ -1,4 +1,4 @@
-import { masterchefAbi } from "@/config/abi";
+import { masterchefAbi, tokenAbi } from "@/config/abi";
 import { hyperEvmMainnet } from "@/config/wagmiConfig";
 import {
   GenericContractsDeclaration,
@@ -12,6 +12,10 @@ export const contractsData: GenericContractsDeclaration = {
       address: zeroAddress, // TODO: Update when deployed"
       abi: masterchefAbi as Abi,
     },
+    Token: {
+      address: zeroAddress, // TODO: Update when deployed"
+      abi: tokenAbi as Abi,
+    }
   },
 
   // Add more chains as needed
