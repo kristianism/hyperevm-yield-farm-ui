@@ -29,6 +29,21 @@ export const hyperEvmMainnet = {
   },
 } as const satisfies Chain;
 
+export const hyperEvmTestnet = {
+  id: 998,
+  name: "Hyperliquid EVM Testnet",
+  nativeCurrency: { name: "HYPE", symbol: "HYPE", decimals: 18 },
+  rpcUrls: { default: { http: ["https://rpc.hyperliquid-testnet.xyz/evm"] } },
+  blockExplorers: {
+    default: { name: "Purrscan", url: "https://testnet.purrsec.com/" },
+  },
+  contracts: {
+    multicall3: {
+      address: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    },
+  },
+} as const satisfies Chain;
+
 const connectors = connectorsForWallets(
   [
     {
