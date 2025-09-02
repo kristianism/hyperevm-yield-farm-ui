@@ -1,5 +1,5 @@
 import { masterchefAbi, tokenAbi } from "@/config/abi";
-import { hyperEvmMainnet } from "@/config/wagmiConfig";
+import { hyperEvmMainnet, hyperEvmTestnet } from "@/config/wagmiConfig";
 import {
   GenericContractsDeclaration,
   TContractsKeys,
@@ -14,6 +14,16 @@ export const contractsData: GenericContractsDeclaration = {
     },
     Token: {
       address: zeroAddress, // TODO: Update when deployed"
+      abi: tokenAbi as Abi,
+    }
+  },
+  [hyperEvmTestnet.id]: {
+    Masterchef: {
+      address: "0x929c054F1F8a1A33F3ee24A17eA8216a5c2f2bE0",
+      abi: masterchefAbi as Abi,
+    },
+    Token: {
+      address: "0x74c33c558C71a5aB47A9ae3b0970f7edDf950b4B",
       abi: tokenAbi as Abi,
     }
   },
