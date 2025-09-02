@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HyperEVM Farm",
+  title: "HyperYield",
   description: "Degens don’t wait. Why should you?",
 };
 
