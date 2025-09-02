@@ -70,8 +70,9 @@ const connectors = connectorsForWallets(
 
 export const wagmiConfig = createConfig({
   connectors,
-  chains: [hyperEvmMainnet],
+  chains: [hyperEvmMainnet, hyperEvmTestnet],
   transports: {
     [hyperEvmMainnet.id]: http("https://rpc.hyperliquid.xyz/evm"),
+    [hyperEvmTestnet.id]: http("https://rpc.hyperliquid-testnet.xyz/evm"),
   },
 });
