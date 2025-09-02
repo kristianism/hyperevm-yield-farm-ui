@@ -7,17 +7,17 @@ export default function Home() {
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-center">
         <Image
-          className="invert dark:invert-0"
+          className="dark:invert"
           src="/logo.svg"
           alt="HyperYield logo"
-          width={480}
-          height={50}
+          width={150}
+          height={38}
           priority
         />
         <Image
-          className="dark:invert"
-          src="/powered-by-hl.svg"
-          alt="Powered by HyperLiquid"
+          className="invert dark:invert-0"
+          src="/text.svg"
+          alt="HyperYield text"
           width={300}
           height={38}
           priority
@@ -32,7 +32,6 @@ export default function Home() {
             Degens don’t wait. Why should you?
           </li>
         </ul>
-
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
             className="animate-pulse rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
