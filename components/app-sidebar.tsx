@@ -28,7 +28,7 @@ import {
 const data = {
   teams: [
     {
-      name: "HyperEVM Yield Farm",
+      name: "HyperYield",
       logo: GalleryVerticalEnd,
       plan: "Mainnet",
     },
@@ -54,7 +54,7 @@ const data = {
       title: "Documentation",
       url: "#",
       icon: BookOpen,
-      isActive: true,
+      isActive: false,
       items: [
         {
           title: "Introduction",
@@ -74,7 +74,7 @@ const data = {
       title: "Socials",
       url: "#",
       icon: Settings2,
-      isActive: true,
+      isActive: false,
       items: [
         {
           title: "Telegram",
