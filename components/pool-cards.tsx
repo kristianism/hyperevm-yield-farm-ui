@@ -33,19 +33,18 @@ export function PoolCard({ poolId, allocPoint, totalAllocPoints }: PoolCardProps
   const formatNumber = (value: string) => {
     const num = parseFloat(value);
     return num.toLocaleString('en-US', {
-      minimumFractionDigits: 0,
+      minimumFractionDigits: 2,
       maximumFractionDigits: 4,
     });
   };
 
-    // Maximum uint256 value
-    const MAX_UINT256 = "115792089237316195423570985008687907853269984665640564039457584007913129639935";
-
+  // Maximum uint256 value
+  const MAX_UINT256 = "115792089237316195423570985008687907853269984665640564039457584007913129639935";
 
   const handleApprove = async () => {
     try {
       setIsLoading(true);
-      await approve(depositAmount || MAX_UINT256); // Approve large amount for convenience
+      await approve(depositAmount);
       toast.success("Token approved successfully!");
     } catch (error) {
       toast.error("Failed to approve token");

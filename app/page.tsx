@@ -1,10 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { DarkVeilBackground } from "@/components/ui/dark-veil-background";
 
 export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+      <DarkVeilBackground 
+          hueShift={45}
+          scanlineIntensity={0.1}
+          scanlineFrequency={2.0}
+          noiseIntensity={0.05}
+          warpAmount={1.0}
+          className="absolute inset-0 -z-10"
+      />
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-center">
         <Image
           className="invert dark:invert-0"
@@ -15,14 +24,14 @@ export default function Home() {
           priority
         />
         <Image
-          className="invert dark:invert-0"
+          className="dark:invert-0"
           src="/text.svg"
           alt="HyperYield text"
           width={300}
           height={38}
           priority
         />
-        <ul className="font-mono list-inside list-disc text-sm/6 text-center sm:text-left">
+        <ul className="invert dark:invert-0 font-mono list-inside list-disc text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
             <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
               HyperYield: Because Slow Yields Are for Normies.

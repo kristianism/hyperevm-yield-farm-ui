@@ -42,11 +42,11 @@ const data = {
       items: [
         {
           title: "Pools",
-          url: "/dashboard/pools",
+          url: "#",
         },
         {
           title: "My Positions",
-          url: "/dashboard/positions",
+          url: "#",
         }
       ],
     },
@@ -82,7 +82,7 @@ const data = {
         },
         {
           title: "X (Twitter)",
-          url: "#",
+          url: "https://x.com/YieldHyper",
         },
       ],
     },
