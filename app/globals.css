@@ -2,6 +2,28 @@
 
 @import "tw-animate-css";
 
+/* Ensure RainbowKit modals have the highest z-index */
+[data-rk] {
+  z-index: 9999 !important;
+}
+
+/* Specifically target the overlay and modal container */
+[data-rk] [role="dialog"] {
+  z-index: 9999 !important;
+}
+
+/* Target the backdrop/overlay */
+[data-rk] [data-state="open"] {
+  z-index: 9998 !important;
+}
+
+/* For mobile devices, ensure it's above everything */
+@media (max-width: 768px) {
+  [data-rk] {
+    z-index: 10000 !important;
+  }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -121,3 +143,4 @@
     @apply bg-background text-foreground;
   }
 }
+
