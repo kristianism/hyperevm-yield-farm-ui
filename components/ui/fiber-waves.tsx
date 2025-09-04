@@ -1,15 +1,20 @@
 'use client';
 
 import React, { useEffect, useRef, forwardRef } from "react";
-// @ts-ignore
 import { Renderer, Program, Mesh, Triangle, Color } from "ogl";
 import { cn } from '@/lib/utils';
 
-export interface FiberWavesProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FiberWavesProps {
   color?: [number, number, number];
   amplitude?: number;
   distance?: number;
   enableMouseInteraction?: boolean;
+
+  className?: string;
+  style?: React.CSSProperties;
+  id?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onMouseMove?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const vertexShader = `
@@ -137,14 +142,12 @@ export const FiberWaves = forwardRef<HTMLDivElement, FiberWavesProps>(({
   enableMouseInteraction = false,
   ...props
 }, ref) => {
-  const domProps = { ...props };
-  delete domProps.color;
-  delete domProps.amplitude;
-  delete domProps.distance;
-  delete domProps.enableMouseInteraction;
+  const {
+    ...domProps
+  } = props;
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationFrameId = useRef<number>();
+  const animationFrameId = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -189,7 +192,7 @@ export const FiberWaves = forwardRef<HTMLDivElement, FiberWavesProps>(({
     window.addEventListener("resize", resize);
     resize();
 
-    let currentMouse = [0.5, 0.5];
+    const currentMouse = [0.5, 0.5];
     let targetMouse = [0.5, 0.5];
 
     function handleMouseMove(e: MouseEvent) {

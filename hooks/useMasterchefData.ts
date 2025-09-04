@@ -166,7 +166,7 @@ export function useMasterchefData() {
           decimals = Number.isFinite(dec) ? dec : undefined;
           if (decimals != null) {
             // use bigint exponentiation for divisor
-            const divisor = 10n ** BigInt(decimals);
+            const divisor = BigInt(10) ** BigInt(decimals);
             // avoid converting huge bigint directly to Number if possible; but for UI show reasonable precision
             formattedBalance = (Number(balance) / Number(divisor)).toFixed(6);
           }

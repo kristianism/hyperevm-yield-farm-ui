@@ -1,4 +1,4 @@
-import { IconTrendingUp, IconCoins, IconPool } from "@tabler/icons-react"
+import { IconCoins, IconPool } from "@tabler/icons-react"
 import {
   Card,
   CardDescription,

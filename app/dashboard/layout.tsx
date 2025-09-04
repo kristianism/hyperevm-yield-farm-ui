@@ -15,9 +15,9 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
         <FiberWaves 
-        color={[0.5, 0.5, 0.5]}
-        amplitude={1.0}
-        className="absolute"
+            color={[0.5, 0.5, 0.5]}
+            amplitude={1.0}
+            className="absolute"
         />
         <AppSidebar />
         <SidebarInset>

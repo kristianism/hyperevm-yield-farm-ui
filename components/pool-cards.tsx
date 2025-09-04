@@ -38,9 +38,6 @@ export function PoolCard({ poolId, allocPoint, totalAllocPoints }: PoolCardProps
     });
   };
 
-  // Maximum uint256 value
-  const MAX_UINT256 = "115792089237316195423570985008687907853269984665640564039457584007913129639935";
-
   const handleApprove = async () => {
     try {
       setIsLoading(true);
