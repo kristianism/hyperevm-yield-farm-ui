@@ -17,6 +17,7 @@ export const contractsData: GenericContractsDeclaration = {
       abi: tokenAbi as Abi,
     }
   },
+  
   [hyperEvmTestnet.id]: {
     Masterchef: {
       address: "0x929c054F1F8a1A33F3ee24A17eA8216a5c2f2bE0",

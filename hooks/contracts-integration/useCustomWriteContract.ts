@@ -12,7 +12,7 @@ import {
 import { WriteContractErrorType, WriteContractReturnType } from "wagmi/actions";
 import { WriteContractVariables } from "wagmi/query";
 import { useTransactor } from "@/hooks/contracts-integration/useTransactor";
-import { useDeployedContractInfo } from "@/hooks/contracts-integration/useDeployContractInfo";
+import { useDeployedContractInfo } from "@/hooks/contracts-integration/useDeployedContractInfo";
 import {
   ContractAbi,
   ContractName,
