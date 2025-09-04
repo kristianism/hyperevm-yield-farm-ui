@@ -6,16 +6,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
 import { ContractsInteractionsContextProvider } from "@/contexts/ContractsInteractionsContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "HyperYield",
   description: "Degens don’t wait. Why should you?",
@@ -30,7 +20,7 @@ export default function RootLayout({
     <>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`antialiased`}
         >
           <RainbowProvider>
             <ContractsInteractionsContextProvider>
