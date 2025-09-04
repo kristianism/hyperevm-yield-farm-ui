@@ -8,20 +8,18 @@ import {
 } from "@/components/ui/card"
 import { useTokenData } from "@/hooks/useTokenData"
 import { usePoolLength } from "@/hooks/usePoolLength"
-import { useMasterchefData } from "@/hooks/useMasterchefData"
 
 export function SectionCards() {
   const { parsedTotalSupply, name, symbol, isLoading } = useTokenData();
   const { poolLength } = usePoolLength();
-  const { 
-    totalTVL, 
-    isLoading: isLoadingTVL 
-  } = useMasterchefData();
+
+  const isLoadingTVL = false; // Placeholder for TVL loading state
+  const totalTVL = "1234567.89"; // Placeholder for total TVL value
 
   const formatNumber = (supply: string) => {
     const num = parseFloat(supply);
     return num.toLocaleString('en-US', {
-      minimumFractionDigits: 0,
+      minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
   };
@@ -62,7 +60,7 @@ export function SectionCards() {
               <>
                 {formatNumber(totalTVL)}
                 <span className="text-sm font-normal text-muted-foreground ml-2">
-                  tokens
+                  US$
                 </span>
               </>
             )}
@@ -74,6 +72,32 @@ export function SectionCards() {
           </div>
           <div className="text-muted-foreground">
             Current total value locked in all pools
+          </div>
+        </CardFooter>
+      </Card>
+
+      <Card className="@container/card">
+        <CardHeader>
+          <CardDescription>My Staked Amount</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {isLoadingTVL ? (
+              <div className="animate-pulse bg-muted h-8 w-32 rounded"></div>
+            ) : (
+              <>
+                {formatNumber(totalTVL)}
+                <span className="text-sm font-normal text-muted-foreground ml-2">
+                  US$
+                </span>
+              </>
+            )}
+          </CardTitle>
+        </CardHeader>
+        <CardFooter className="flex-col items-start gap-1.5 text-sm">
+          <div className="line-clamp-1 flex gap-2 font-medium">
+            Across {poolLength} active pools <IconPool className="size-4" />
+          </div>
+          <div className="text-muted-foreground">
+            My current total value staked in all pools
           </div>
         </CardFooter>
       </Card>

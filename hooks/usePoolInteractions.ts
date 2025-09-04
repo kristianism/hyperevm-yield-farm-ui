@@ -1,13 +1,15 @@
-import { useReadContracts, useAccount } from "wagmi";
-import { getContractData } from "@/constants/contractsData";
-import { useChainId } from "wagmi";
+import { useReadContracts, useAccount, useWriteContract } from "wagmi";
+import { useContext } from "react";
 import { formatEther, parseEther } from "viem";
+import type { Abi } from "abitype";
 import { useCustomWriteContract } from "@/hooks/contracts-integration/useCustomWriteContract";
+import { useDeployedContractInfo } from "@/hooks/contracts-integration/useDeployedContractInfo";
+import { tokenAbi } from "@/config/abi";
+import ContractsInteractionsContext from "@/contexts/ContractsInteractionsContext";
 
 export function usePoolInteractions(poolId: number) {
-  const chainId = useChainId();
   const { address: userAddress } = useAccount();
-  const masterchefContract = getContractData(chainId, "Masterchef");
+  const { data: masterchefContract } = useDeployedContractInfo("Masterchef");
   
   // Get pool info and user info
   const { data, isLoading } = useReadContracts({
@@ -35,7 +37,7 @@ export function usePoolInteractions(poolId: number) {
       },
     ],
     query: {
-      enabled: !!userAddress,
+      enabled: !!(userAddress && masterchefContract?.address && masterchefContract?.abi),
     },
   });
 
@@ -53,47 +55,20 @@ export function usePoolInteractions(poolId: number) {
       // LP token symbol
       {
         address: lpTokenAddress as `0x${string}`,
-        abi: [
-          {
-            "type": "function",
-            "name": "symbol",
-            "inputs": [],
-            "outputs": [{"name": "", "type": "string"}],
-            "stateMutability": "view"
-          }
-        ],
+        abi: tokenAbi as Abi,
         functionName: "symbol",
       },
       // User LP token balance
       {
         address: lpTokenAddress as `0x${string}`,
-        abi: [
-          {
-            "type": "function",
-            "name": "balanceOf",
-            "inputs": [{"name": "account", "type": "address"}],
-            "outputs": [{"name": "", "type": "uint256"}],
-            "stateMutability": "view"
-          }
-        ],
+        abi: tokenAbi as Abi,
         functionName: "balanceOf",
         args: [userAddress as `0x${string}`],
       },
       // User allowance
       {
         address: lpTokenAddress as `0x${string}`,
-        abi: [
-          {
-            "type": "function",
-            "name": "allowance",
-            "inputs": [
-              {"name": "owner", "type": "address"},
-              {"name": "spender", "type": "address"}
-            ],
-            "outputs": [{"name": "", "type": "uint256"}],
-            "stateMutability": "view"
-          }
-        ],
+        abi: tokenAbi as Abi,
         functionName: "allowance",
         args: [userAddress as `0x${string}`, masterchefContract?.address as `0x${string}`],
       },
@@ -108,30 +83,17 @@ export function usePoolInteractions(poolId: number) {
   const allowance = tokenData?.[2]?.result as bigint;
 
   // Write contract hooks
-  const { writeContractAsync: approveToken } = useCustomWriteContract();
-  const { writeContractAsync: depositTokens } = useCustomWriteContract();
-  const { writeContractAsync: withdrawTokens } = useCustomWriteContract();
-  const { writeContractAsync: harvestRewards } = useCustomWriteContract();
-
+  const { writeToMasterchef } = useContext(ContractsInteractionsContext);
+  const { writeContract } = useWriteContract();
+  
   const approve = async (amount: string) => {
     if (!lpTokenAddress || !masterchefContract?.address) {
         throw new Error("Missing contract addresses");
     }
     
-    return approveToken({
+    return writeContract({
       address: lpTokenAddress as `0x${string}`,
-      abi: [
-        {
-          "type": "function",
-          "name": "approve",
-          "inputs": [
-            {"name": "spender", "type": "address"},
-            {"name": "value", "type": "uint256"}
-          ],
-          "outputs": [{"name": "", "type": "bool"}],
-          "stateMutability": "nonpayable"
-        }
-      ],
+      abi: tokenAbi as Abi,
       functionName: "approve",
       args: [masterchefContract?.address as `0x${string}`, parseEther(amount)],
     });
@@ -142,7 +104,7 @@ export function usePoolInteractions(poolId: number) {
         throw new Error("Missing masterchef contract data");
     }
 
-    return depositTokens({
+    return writeToMasterchef({
       address: masterchefContract?.address,
       abi: masterchefContract?.abi,
       functionName: "deposit",
@@ -151,7 +113,7 @@ export function usePoolInteractions(poolId: number) {
   };
 
   const withdraw = async (amount: string) => {
-    return withdrawTokens({
+    return writeToMasterchef({
       address: masterchefContract?.address,
       abi: masterchefContract?.abi,
       functionName: "withdraw",
@@ -160,7 +122,7 @@ export function usePoolInteractions(poolId: number) {
   };
 
   const harvest = async () => {
-    return harvestRewards({
+    return writeToMasterchef({
       address: masterchefContract?.address,
       abi: masterchefContract?.abi,
       functionName: "deposit",
