@@ -6,8 +6,6 @@ import { useReadContracts } from "wagmi";
 export function useMasterchefData() {
   const { data: masterchefContract } = useDeployedContractInfo("Masterchef");
 
-  console.log("Masterchef Contract:", masterchefContract);
-
   const { data: poolLength }: { data: bigint } = useCustomReadContract({
     contractName: "Masterchef",
     functionName: "poolLength"
@@ -17,7 +15,7 @@ export function useMasterchefData() {
   const poolContracts = useMemo(() => {
 
     if (poolLength == null || !masterchefContract?.address) return [];
-    if (poolLength <= 0n) return [];
+    if (poolLength <= BigInt(0)) return [];
 
     const count = Number(poolLength);
     if (!Number.isFinite(count) || count <= 0) return [];
@@ -37,7 +35,7 @@ export function useMasterchefData() {
       enabled:
         !!masterchefContract &&
         poolLength != null &&
-        poolLength > 0n &&
+        poolLength > BigInt(0) &&
         poolContracts.length > 0,
     },
   });
