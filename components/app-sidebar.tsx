@@ -42,7 +42,7 @@ const data = {
       items: [
         {
           title: "Pools",
-          url: "/dashboard/farm",
+          url: "/dashboard/pools",
         },
         {
           title: "My Positions",
@@ -78,10 +78,6 @@ const data = {
       items: [
         {
           title: "Telegram",
-          url: "#",
-        },
-        {
-          title: "Discord",
           url: "#",
         },
         {
