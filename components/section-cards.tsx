@@ -1,4 +1,4 @@
-import { IconTrendingDown, IconTrendingUp, IconCoins, IconPool } from "@tabler/icons-react"
+import { IconTrendingUp, IconCoins, IconPool } from "@tabler/icons-react"
 import {
   Card,
   CardDescription,
@@ -6,15 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { useTokenData } from "@/hooks/use-token-data"
-import { useMasterchefData } from "@/hooks/use-masterchef-data"
+import { useTokenData } from "@/hooks/useTokenData"
+import { usePoolLength } from "@/hooks/usePoolLength"
+import { useMasterchefData } from "@/hooks/useMasterchefData"
 
 export function SectionCards() {
-  const { totalSupply, tokenName, tokenSymbol, isLoading } = useTokenData();
+  const { parsedTotalSupply, name, symbol, isLoading } = useTokenData();
+  const { poolLength } = usePoolLength();
   const { 
     totalTVL, 
-    poolCount, 
-    poolDetails,
     isLoading: isLoadingTVL 
   } = useMasterchefData();
 
@@ -26,27 +26,19 @@ export function SectionCards() {
     });
   };
 
-  // Calculate a more meaningful metric for the badge
-  const getPoolDiversity = () => {
-    if (!poolDetails || poolDetails.length === 0) return "No pools";
-    
-    const uniqueTokens = new Set(poolDetails.map(pool => pool.tokenSymbol));
-    return `${uniqueTokens.size} token types`;
-  };
-
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
       
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>
-            {tokenName ? `${tokenName} (${tokenSymbol}) Supply` : "Token Supply"}
+            {name ? `${name} (${symbol}) Supply` : "Token Supply"}
           </CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {isLoading ? (
               <div className="animate-pulse bg-muted h-8 w-32 rounded"></div>
             ) : (
-              formatNumber(totalSupply)
+              formatNumber(parsedTotalSupply)
             )}
           </CardTitle>
         </CardHeader>
@@ -78,41 +70,11 @@ export function SectionCards() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Across {poolCount} active pools <IconPool className="size-4" />
+            Across {poolLength} active pools <IconPool className="size-4" />
           </div>
           <div className="text-muted-foreground">
-            {getPoolDiversity()} locked in yield farming
+            Current total value locked in all pools
           </div>
-        </CardFooter>
-      </Card>
-
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Active Accounts</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            45,678
-          </CardTitle>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Strong user retention <IconTrendingUp className="size-4" />
-          </div>
-          <div className="text-muted-foreground">Engagement exceed targets</div>
-        </CardFooter>
-      </Card>
-
-      <Card className="@container/card">
-        <CardHeader>
-          <CardDescription>Growth Rate</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            4.5%
-          </CardTitle>
-        </CardHeader>
-        <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="line-clamp-1 flex gap-2 font-medium">
-            Steady performance increase <IconTrendingUp className="size-4" />
-          </div>
-          <div className="text-muted-foreground">Meets growth projections</div>
         </CardFooter>
       </Card>
 

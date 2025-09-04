@@ -8,15 +8,17 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { SectionCards } from "@/components/section-cards"
-import { PoolsList } from "@/components/pool-list"
 
-export default function Page() {
+export default function PoolPage() {
   const breadcrumbItems = [
     { label: "Dashboard", 
       href: "/dashboard", 
-      isActive: true 
+      isActive: false 
     },
+    { label: "Pools", 
+      href: "/dashboard/farm", 
+      isActive: true 
+    }
   ]
 
   return (
@@ -33,11 +35,13 @@ export default function Page() {
             <RouterBreadcrumb items={breadcrumbItems} />
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0 @container/main">
-
-          <SectionCards />
-          <PoolsList />
-
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+            <div className="bg-muted/50 aspect-video rounded-xl" />
+            <div className="bg-muted/50 aspect-video rounded-xl" />
+            <div className="bg-muted/50 aspect-video rounded-xl" />
+          </div>
+          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
         </div>
       </SidebarInset>
     </SidebarProvider>

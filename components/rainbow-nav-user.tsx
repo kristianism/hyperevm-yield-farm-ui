@@ -17,9 +17,15 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { ChevronsUpDown, Copy, ExternalLink, LogOut, Wallet } from "lucide-react"
+import { useEffect } from 'react'
+import { useAccount, useChainId } from 'wagmi'
 
 export function RainbowNavUser() {
   const { isMobile } = useSidebar()
+  const { address } = useAccount()
+  const chain = useChainId()
+
+  useEffect(() => {}, [address, chain])
 
   return (
     <ConnectButton.Custom>

@@ -4,6 +4,7 @@ import { RainbowProvider } from "@/components/wrappers/rainbowkit-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
+import { ContractsInteractionsContextProvider } from "@/contexts/ContractsInteractionsContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,19 +33,21 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <RainbowProvider>
-            <ThemeProvider 
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <div className="relative min-h-screen">
-                  <div className="fixed top-4 right-4 z-50">
-                    <ModeToggle />
-                  </div>
-                {children}
-              </div>
-            </ThemeProvider>
+            <ContractsInteractionsContextProvider>
+              <ThemeProvider 
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <div className="relative min-h-screen">
+                    <div className="fixed top-4 right-4 z-50">
+                      <ModeToggle />
+                    </div>
+                  {children}
+                </div>
+              </ThemeProvider>
+            </ContractsInteractionsContextProvider>
           </RainbowProvider>
         </body>
       </html>
