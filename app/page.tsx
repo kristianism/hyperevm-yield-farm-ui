@@ -12,7 +12,7 @@ export default function Home() {
           scanlineFrequency={2.0}
           noiseIntensity={0.05}
           warpAmount={1.0}
-          className="absolute inset-0 -z-10"
+          className="fixed inset-0 -z-1000"
       />
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-center">
         <Image
