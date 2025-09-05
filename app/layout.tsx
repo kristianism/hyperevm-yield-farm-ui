@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { RainbowProvider } from "@/components/wrappers/rainbowkit-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
-import { Geist, Geist_Mono } from "next/font/google";
-import "@/app/globals.css";
 import { ContractsInteractionsContextProvider } from "@/contexts/ContractsInteractionsContext";
+import "@/app/globals.css";
 
 export const metadata: Metadata = {
   title: "HyperYield",
