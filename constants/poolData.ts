@@ -27,4 +27,7 @@ export const PoolData = {
       priceFeed: "",
     },
   },
+  [hyperEvmMainnet.id]: {
+    // Add mainnet pool configurations here when available
+  },
 };
