@@ -49,12 +49,12 @@ export function PoolsList() {
           <IconPool className="size-6" />
           <h2 className="text-2xl font-bold">Yield Farming Pools</h2>
         </div>
-        <div className="text-sm text-muted-foreground">
+        <div className="text-lg text-muted-foreground">
           {poolCount} active pool{poolCount !== 1 ? 's' : ''}
         </div>
       </div>
       
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: poolCount }).map((_, index) => (
           <PoolCard 
             key={index}

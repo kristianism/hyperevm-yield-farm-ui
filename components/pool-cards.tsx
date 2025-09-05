@@ -132,6 +132,10 @@ export function PoolCard({ poolId, allocPoint, totalAllocPoints }: PoolCardProps
           </span>
           <Badge variant="outline">
             <IconTrendingUp className="size-3 mr-1" />
+            {poolShare}% APR
+          </Badge>
+          <Badge variant="outline">
+            <IconTrendingUp className="size-3 mr-1" />
             {poolShare}% allocation
           </Badge>
         </CardTitle>
