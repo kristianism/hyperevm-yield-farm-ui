@@ -9,7 +9,6 @@ export interface FiberWavesProps {
   amplitude?: number;
   distance?: number;
   enableMouseInteraction?: boolean;
-
   className?: string;
   style?: React.CSSProperties;
   id?: string;
