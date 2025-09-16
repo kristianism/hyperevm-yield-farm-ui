@@ -35,12 +35,12 @@ const data = {
       isActive: true,
       items: [
         {
-          title: "Pools",
-          url: "#",
+          title: "Dashboard",
+          url: "/dashboard",
         },
         {
-          title: "My Positions",
-          url: "#",
+          title: "Presale",
+          url: "/presale",
         }
       ],
     },
