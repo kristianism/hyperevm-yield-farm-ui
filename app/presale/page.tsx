@@ -1,0 +1,34 @@
+"use client"
+
+import { RouterBreadcrumb } from "@/components/ui/router-breadcrumb"
+import { Separator } from "@/components/ui/separator"
+import { SidebarTrigger } from "@/components/ui/sidebar"
+import { BlockRefresher } from "@/components/block-refresher"
+import { PresaleCard } from "@/components/presale-card"
+
+export default function Page() {
+	const breadcrumbItems = [
+		{ label: "Presale", href: "/presale", isActive: true },
+	]
+
+	return (
+		<div className="min-h-screen">
+			<header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+				<div className="flex items-center gap-2 px-4">
+					<SidebarTrigger className="-ml-1" />
+					<Separator
+						orientation="vertical"
+						className="mr-2 data-[orientation=vertical]:h-4"
+					/>
+					<RouterBreadcrumb items={breadcrumbItems} />
+				</div>
+			</header>
+			<div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+				<BlockRefresher />
+				<div className="flex justify-center">
+					<PresaleCard />
+				</div>
+			</div>
+		</div>
+	)
+}
