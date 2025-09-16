@@ -16,30 +16,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`antialiased`}
-        >
-          <RainbowProvider>
-            <ContractsInteractionsContextProvider>
-              <ThemeProvider 
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                disableTransitionOnChange
-              >
-                <div className="relative min-h-screen">
-                    <div className="fixed top-4 right-4 z-50">
-                      <ModeToggle />
-                    </div>
-                  {children}
-                </div>
-              </ThemeProvider>
-            </ContractsInteractionsContextProvider>
-          </RainbowProvider>
-        </body>
-      </html>
-    </>  
+    <html>
+      <body className="antialised">
+        <RainbowProvider>
+          <ContractsInteractionsContextProvider>
+            <ThemeProvider 
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <div className="relative min-h-screen">
+                  <div className="fixed top-4 right-4 z-50">
+                    <ModeToggle />
+                  </div>
+                {children}
+              </div>
+            </ThemeProvider>
+          </ContractsInteractionsContextProvider>
+        </RainbowProvider>
+      </body>
+    </html>
   );
 }

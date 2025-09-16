@@ -13,16 +13,16 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <SidebarProvider>
-        <FiberWaves 
-            color={[0.5, 0.5, 0.5]}
-            amplitude={1.0}
-            className="fixed inset-0 -z-1000"
-        />
-        <AppSidebar />
-        <SidebarInset>
-            {children}
-        </SidebarInset>
-    </SidebarProvider>
+      <SidebarProvider>
+          <FiberWaves 
+              color={[0.5, 0.5, 0.5]}
+              amplitude={1.0}
+              className="fixed inset-0 -z-1000"
+          />
+          <AppSidebar />
+          <SidebarInset>
+              {children}
+          </SidebarInset>
+      </SidebarProvider>
   )
 }
