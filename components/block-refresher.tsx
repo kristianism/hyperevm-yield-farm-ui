@@ -8,7 +8,7 @@ import { useBlockNumber } from "wagmi";
  * Invalidates queries on every new block.
  * This will refresh all pool data, balances, rewards, etc.
  */
-export default function BlockRefresher() {
+export function BlockRefresher() {
   const qc = useQueryClient();
   const { data: blockNumber } = useBlockNumber({ watch: true });
 
