@@ -9,13 +9,17 @@ import { Abi, zeroAddress } from "viem";
 export const contractsData: GenericContractsDeclaration = {
   [hyperEvmMainnet.id]: {
     Masterchef: {
-      address: zeroAddress, // TODO: Update when deployed"
+      address: zeroAddress, // TODO: Update when deployed
       abi: masterchefAbi as Abi,
     },
     Token: {
-      address: zeroAddress, // TODO: Update when deployed"
+      address: zeroAddress, // TODO: Update when deployed
       abi: tokenAbi as Abi,
-    }
+    },
+    Presale: {
+      address: zeroAddress, // TODO: Update when deployed
+      abi: [] as Abi, // TODO: Add Presale ABI
+    },
   },
   
   [hyperEvmTestnet.id]: {
@@ -26,7 +30,11 @@ export const contractsData: GenericContractsDeclaration = {
     Token: {
       address: "0x74c33c558C71a5aB47A9ae3b0970f7edDf950b4B",
       abi: tokenAbi as Abi,
-    }
+    },
+    Presale: {
+      address: zeroAddress, // TODO: Update when deployed
+      abi: [] as Abi, // TODO: Add Presale ABI
+    },
   },
 
   // Add more chains as needed
