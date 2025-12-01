@@ -6,83 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { useEffect, useState } from "react"
 import { formatEther } from "viem"
-import { useReadContract } from "wagmi"
-
-// Presale Contract ABI - Add your actual ABI here
-const PRESALE_ABI = [
-	{
-		inputs: [],
-		name: "startTime",
-		outputs: [{ type: "uint256" }],
-		stateMutability: "view",
-		type: "function",
-	},
-	{
-		inputs: [],
-		name: "endTime",
-		outputs: [{ type: "uint256" }],
-		stateMutability: "view",
-		type: "function",
-	},
-	{
-		inputs: [],
-		name: "liquidityUnlockTime",
-		outputs: [{ type: "uint256" }],
-		stateMutability: "view",
-		type: "function",
-	},
-	{
-		inputs: [],
-		name: "presalePrice",
-		outputs: [{ type: "uint256" }],
-		stateMutability: "view",
-		type: "function",
-	},
-	{
-		inputs: [],
-		name: "listingPrice",
-		outputs: [{ type: "uint256" }],
-		stateMutability: "view",
-		type: "function",
-	},
-	{
-		inputs: [],
-		name: "liquidityPercentage",
-		outputs: [{ type: "uint256" }],
-		stateMutability: "view",
-		type: "function",
-	},
-	{
-		inputs: [],
-		name: "tokensRemaining",
-		outputs: [{ type: "uint256" }],
-		stateMutability: "view",
-		type: "function",
-	},
-	{
-		inputs: [],
-		name: "softCap",
-		outputs: [{ type: "uint256" }],
-		stateMutability: "view",
-		type: "function",
-	},
-	{
-		inputs: [],
-		name: "hardCap",
-		outputs: [{ type: "uint256" }],
-		stateMutability: "view",
-		type: "function",
-	},
-	{
-		inputs: [],
-		name: "totalRaised",
-		outputs: [{ type: "uint256" }],
-		stateMutability: "view",
-		type: "function",
-	},
-] as const
-
-const PRESALE_CONTRACT_ADDRESS = "0x..." // Add your presale contract address
+import { useCustomReadContract } from "@/hooks/contracts-integration/useCustomReadContract"
+import { useDeployedContractInfo } from "@/hooks/contracts-integration/useDeployedContractInfo"
 
 export function PresaleCard() {
 	const [timeLeft, setTimeLeft] = useState<{
@@ -91,65 +16,63 @@ export function PresaleCard() {
 		liquidityUnlock?: number
 	}>({})
 
+    // Get contract info
+    const { data: presaleContract } = useDeployedContractInfo("Presale")
+
 	// Read contract data
-	const { data: startTime } = useReadContract({
-		address: PRESALE_CONTRACT_ADDRESS,
-		abi: PRESALE_ABI,
+	const { data: startTime } = useCustomReadContract({
+		contractName: "Presale",
 		functionName: "startTime",
 	})
 
-	const { data: endTime } = useReadContract({
-		address: PRESALE_CONTRACT_ADDRESS,
-		abi: PRESALE_ABI,
+	const { data: endTime } = useCustomReadContract({
+		contractName: "Presale",
 		functionName: "endTime",
 	})
 
-	const { data: liquidityUnlockTime } = useReadContract({
-		address: PRESALE_CONTRACT_ADDRESS,
-		abi: PRESALE_ABI,
+	const { data: liquidityUnlockTime } = useCustomReadContract({
+		contractName: "Presale",
 		functionName: "liquidityUnlockTime",
 	})
 
-	const { data: presalePrice } = useReadContract({
-		address: PRESALE_CONTRACT_ADDRESS,
-		abi: PRESALE_ABI,
+	const { data: presalePrice } = useCustomReadContract({
+		contractName: "Presale",
 		functionName: "presalePrice",
 	})
 
-	const { data: listingPrice } = useReadContract({
-		address: PRESALE_CONTRACT_ADDRESS,
-		abi: PRESALE_ABI,
+	const { data: listingPrice } = useCustomReadContract({
+		contractName: "Presale",
 		functionName: "listingPrice",
 	})
 
-	const { data: liquidityPercentage } = useReadContract({
-		address: PRESALE_CONTRACT_ADDRESS,
-		abi: PRESALE_ABI,
+	const { data: liquidityPercentage } = useCustomReadContract({
+		contractName: "Presale",
 		functionName: "liquidityPercentage",
 	})
 
-	const { data: tokensRemaining } = useReadContract({
-		address: PRESALE_CONTRACT_ADDRESS,
-		abi: PRESALE_ABI,
+	const { data: tokensRemaining } = useCustomReadContract({
+		contractName: "Presale",
 		functionName: "tokensRemaining",
 	})
 
-	const { data: softCap } = useReadContract({
-		address: PRESALE_CONTRACT_ADDRESS,
-		abi: PRESALE_ABI,
+	const { data: softCap } = useCustomReadContract({
+		contractName: "Presale",
 		functionName: "softCap",
 	})
 
-	const { data: hardCap } = useReadContract({
-		address: PRESALE_CONTRACT_ADDRESS,
-		abi: PRESALE_ABI,
+	const { data: hardCap } = useCustomReadContract({
+		contractName: "Presale",
 		functionName: "hardCap",
 	})
 
-	const { data: totalRaised } = useReadContract({
-		address: PRESALE_CONTRACT_ADDRESS,
-		abi: PRESALE_ABI,
+	const { data: totalRaised } = useCustomReadContract({
+		contractName: "Presale",
 		functionName: "totalRaised",
+	})
+
+	const { data: isPresaleEnded } = useCustomReadContract({
+		contractName: "Presale",
+		functionName: "isPresaleEnded",
 	})
 
 	// Timer logic
@@ -185,8 +108,17 @@ export function PresaleCard() {
 
 	const getPresaleStatus = () => {
 		const now = Math.floor(Date.now() / 1000)
+
+		// Check if hard cap reached
+		if (isPresaleEnded ||hardCap && totalRaised && Number(totalRaised) >= Number(hardCap)) {
+			return "ended"
+		}
+
+		// Check time-based status
 		if (startTime && now < Number(startTime)) return "upcoming"
 		if (endTime && now < Number(endTime)) return "active"
+		
+		// Default to ended
 		return "ended"
 	}
 
@@ -200,7 +132,7 @@ export function PresaleCard() {
 	return (
 		<Card className="w-full max-w-2xl">
 			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-				<CardTitle className="text-2xl font-bold">HyperYield Presale</CardTitle>
+				<CardTitle className="text-2xl font-bold">HyperYield Token Presale</CardTitle>
 				<Badge
 					variant={
 						status === "active"
@@ -209,7 +141,7 @@ export function PresaleCard() {
 							? "secondary"
 							: "destructive"
 					}
-					className="text-xs"
+					className="text-sm"
 				>
 					{status === "active"
 						? "Live"
@@ -228,7 +160,7 @@ export function PresaleCard() {
 						<div className="font-mono text-sm font-semibold">
 							{status === "upcoming" && timeLeft.start
 								? formatTime(timeLeft.start)
-								: "Started"}
+								: "No available data"}
 						</div>
 					</div>
 					<div className="text-center p-3 bg-muted rounded-lg">
@@ -238,7 +170,7 @@ export function PresaleCard() {
 						<div className="font-mono text-sm font-semibold">
 							{status === "active" && timeLeft.end
 								? formatTime(timeLeft.end)
-								: "Ended"}
+								: "No available data"}
 						</div>
 					</div>
 					<div className="text-center p-3 bg-muted rounded-lg">
@@ -248,7 +180,7 @@ export function PresaleCard() {
 						<div className="font-mono text-sm font-semibold">
 							{timeLeft.liquidityUnlock
 								? formatTime(timeLeft.liquidityUnlock)
-								: "Unlocked"}
+								: "No available data"}
 						</div>
 					</div>
 				</div>
